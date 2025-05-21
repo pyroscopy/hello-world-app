@@ -4,8 +4,78 @@
 
 ## 요구사항
 
-- Java 17
-- Maven 3.6+
+### Java 환경
+- **개발 환경 (JDK 17 필요)**
+  - Java Development Kit (JDK) 17 이상
+  - 컴파일러, 디버거 등 개발 도구 포함
+  - Maven 빌드 및 테스트 실행에 필요
+
+- **실행 환경 (JRE 17 필요)**
+  - Java Runtime Environment (JRE) 17 이상
+  - JAR 파일 실행에 필요
+  - JDK 설치 시 자동 포함
+
+## JDK 17 설치 방법
+
+### macOS
+```bash
+# Homebrew를 사용한 설치
+brew install openjdk@17
+
+# 심볼릭 링크 생성 (필요한 경우)
+sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+
+# 설치 확인
+java -version
+javac -version
+
+# JAVA_HOME 환경 변수 설정
+echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 17)' >> ~/.zshrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+# 저장소 추가
+sudo add-apt-repository ppa:linuxuprising/java
+sudo apt update
+
+# JDK 17 설치
+sudo apt install openjdk-17-jdk
+
+# 설치 확인
+java -version
+javac -version
+
+# JAVA_HOME 환경 변수 설정
+echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Windows
+1. [Oracle JDK 다운로드 페이지](https://www.oracle.com/java/technologies/downloads/#java17)에서 JDK 17 다운로드
+2. 설치 프로그램 실행
+3. 환경 변수 설정:
+   - `JAVA_HOME`: JDK 설치 디렉토리 (예: `C:\Program Files\Java\jdk-17`)
+   - `PATH`: `%JAVA_HOME%\bin` 추가
+4. 설치 확인:
+   - 명령 프롬프트에서 `java -version` 실행
+   - 명령 프롬프트에서 `javac -version` 실행
+
+### 설치 확인
+```bash
+# Java 버전 확인
+java -version
+
+# Java 컴파일러 버전 확인
+javac -version
+
+# JAVA_HOME 환경 변수 확인
+echo $JAVA_HOME  # Unix/Linux/macOS
+echo %JAVA_HOME% # Windows
+```
 
 ## Maven 설치 방법
 
