@@ -7,6 +7,41 @@
 - Java 17
 - Maven 3.6+
 
+## Maven 설치 방법
+
+### macOS
+```bash
+# Homebrew를 사용한 설치
+brew install maven
+
+# 설치 확인
+mvn -version
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+# apt를 사용한 설치
+sudo apt update
+sudo apt install maven
+
+# 설치 확인
+mvn -version
+```
+
+### Windows
+1. [Maven 공식 웹사이트](https://maven.apache.org/download.cgi)에서 최신 버전 다운로드
+2. 다운로드한 파일을 원하는 디렉토리에 압축 해제
+3. 환경 변수 설정:
+   - `MAVEN_HOME`: Maven 설치 디렉토리
+   - `PATH`: `%MAVEN_HOME%\bin` 추가
+
+## 유용한 링크
+
+- [Maven 공식 문서](https://maven.apache.org/guides/)
+- [Spring Boot 가이드](https://spring.io/guides)
+- [Maven Central Repository](https://search.maven.org/)
+- [Spring Boot 프로필 설정 가이드](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles)
+
 ## 빌드 및 테스트
 
 ```bash
