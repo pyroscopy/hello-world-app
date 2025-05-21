@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev  # 기본값으로 개발 환경 설정
+  application:
+    name: hello-world
+
+# 공통 설정
+server:
+  port: 8080
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 

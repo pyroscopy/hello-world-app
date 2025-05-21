@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hello-world-dev
+
+logging:
+  level:
+    root: DEBUG
+    com.example.helloworld: DEBUG
+  file:
+    name: logs/hello-world-dev.log
+
+# 개발 환경 특화 설정
+app:
+  environment: development
+  version: 0.0.1-SNAPSHOT
+  debug: true 
