@@ -7,11 +7,13 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_NAME="hello-world"
 JAR_FILE="target/hello-world-0.0.1-SNAPSHOT.jar"
 DEPLOY_PATH="$SCRIPT_DIR/deploy"
+LOG_PATH="$SCRIPT_DIR/logs"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
 # 디버깅 정보 출력
 echo "Current directory: $(pwd)"
 echo "Deploy path: $DEPLOY_PATH"
+echo "Log path: $LOG_PATH"
 
 # 빌드 및 테스트
 echo "Building and testing application..."
@@ -27,8 +29,20 @@ if ! mkdir -p "$DEPLOY_PATH"; then
     exit 1
 fi
 
+# 로그 디렉토리 생성
+echo "Creating log directory..."
+if ! mkdir -p "$LOG_PATH"; then
+    echo "Failed to create log directory: $LOG_PATH"
+    exit 1
+fi
+
 if [ ! -w "$DEPLOY_PATH" ]; then
     echo "No write permission for directory: $DEPLOY_PATH"
+    exit 1
+fi
+
+if [ ! -w "$LOG_PATH" ]; then
+    echo "No write permission for directory: $LOG_PATH"
     exit 1
 fi
 
@@ -66,8 +80,15 @@ fi
 
 # 새 버전 실행 (프로필 지정)
 echo "Starting application with $PROFILE profile..."
-if ! nohup java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$DEPLOY_PATH/app.log" 2>&1 & then
+if ! java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$LOG_PATH/app.log" 2>&1 & then
     echo "Failed to start application"
+    exit 1
+fi
+
+# 프로세스 시작 확인
+sleep 5
+if ! pgrep -f $APP_NAME.jar > /dev/null; then
+    echo "Application failed to start. Check logs at $LOG_PATH/app.log"
     exit 1
 fi
 
