@@ -14,7 +14,7 @@ if ! mvn clean package; then
 fi
 
 # 배포 디렉토리 생성
-echo "Creating deployment directory..."
+echo "Creating deployment directory.."
 mkdir -p $DEPLOY_PATH
 
 # 기존 애플리케이션 백업
