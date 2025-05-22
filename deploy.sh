@@ -34,7 +34,7 @@ cp $JAR_FILE $DEPLOY_PATH/$APP_NAME.jar
 echo "Restarting application..."
 pid=$(pgrep -f $APP_NAME.jar)
 if [ ! -z "$pid" ]; then
-    kill $pid
+    sudo kill $pid
 fi
 
 # 새 버전 실행 (프로필 지정)
