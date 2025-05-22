@@ -21,7 +21,7 @@ if ! mkdir -p $DEPLOY_PATH; then
 fi
 
 # 기존 애플리케이션 백업
-if [ -f "$DEPLOY_PATH/$APP_NAME.jar" ]; then
+if [ -e "$DEPLOY_PATH/$APP_NAME.jar" ]; then
     echo "Backing up existing application..."
     mv $DEPLOY_PATH/$APP_NAME.jar $DEPLOY_PATH/$APP_NAME.jar.backup
 fi
