@@ -3,7 +3,7 @@
 # 변수 설정
 APP_NAME="hello-world"
 JAR_FILE="target/hello-world-0.0.1-SNAPSHOT.jar"
-DEPLOY_PATH="/app/deploy"
+DEPLOY_PATH="./deploy"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
 # 빌드 및 테스트
@@ -14,8 +14,11 @@ if ! mvn clean package; then
 fi
 
 # 배포 디렉토리 생성
-echo "Creating deployment directory.."
-mkdir -p $DEPLOY_PATH
+echo "Creating deployment directory..."
+if ! mkdir -p $DEPLOY_PATH; then
+    echo "Failed to create deployment directory: $DEPLOY_PATH"
+    exit 1
+fi
 
 # 기존 애플리케이션 백업
 if [ -f "$DEPLOY_PATH/$APP_NAME.jar" ]; then
