@@ -1,9 +1,12 @@
 #!/bin/bash
 
+# 스크립트 위치 기준 절대 경로 설정
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # 변수 설정
 APP_NAME="hello-world"
 JAR_FILE="target/hello-world-0.0.1-SNAPSHOT.jar"
-DEPLOY_PATH="./deploy"
+DEPLOY_PATH="$SCRIPT_DIR/deploy"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
 # 빌드 및 테스트
@@ -13,17 +16,33 @@ if ! mvn clean package; then
     exit 1
 fi
 
-# 배포 디렉토리 생성
+# 디버깅 정보 출력
+echo "Current directory: $(pwd)"
+echo "Deploy path: $DEPLOY_PATH"
+
+# 배포 디렉토리 생성 및 권한 확인
 echo "Creating deployment directory..."
-if ! mkdir -p $DEPLOY_PATH; then
+if ! mkdir -p "$DEPLOY_PATH"; then
     echo "Failed to create deployment directory: $DEPLOY_PATH"
     exit 1
 fi
 
+if [ ! -w "$DEPLOY_PATH" ]; then
+    echo "No write permission for directory: $DEPLOY_PATH"
+    exit 1
+fi
+
 # 기존 애플리케이션 백업
-if [ -f "$DEPLOY_PATH/$APP_NAME.jar" ]; then
-    echo "Backing up existing application..."
-    mv $DEPLOY_PATH/$APP_NAME.jar $DEPLOY_PATH/$APP_NAME.jar.backup
+echo "Checking for existing JAR: $DEPLOY_PATH/$APP_NAME.jar"
+if [ -e "$DEPLOY_PATH/$APP_NAME.jar" ]; then
+    echo "Found existing JAR file, backing up..."
+    if ! mv "$DEPLOY_PATH/$APP_NAME.jar" "$DEPLOY_PATH/$APP_NAME.jar.backup"; then
+        echo "Failed to backup existing application"
+        exit 1
+    fi
+    echo "Backup completed successfully"
+else
+    echo "No existing JAR file found"
 fi
 
 # 새 버전 배포
