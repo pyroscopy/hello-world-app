@@ -7,7 +7,7 @@ DEPLOY_PATH="/app/deploy"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
 # 빌드 및 테스트
-echo "Building and testing application..."
+echo "Building and testing application.."
 if ! mvn clean package; then
     echo "Tests failed! Deployment aborted."
     exit 1
