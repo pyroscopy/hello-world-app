@@ -69,9 +69,9 @@ fi
 # 애플리케이션 재시작
 echo "Restarting application..."
 pid=$(pgrep -f $APP_NAME.jar)
-if [ ! -z "$pid" ]; then
+if [ -n "$pid" ]; then
     echo "Stopping existing application (PID: $pid)..."
-    if ! kill $pid; then
+    if ! kill "$pid"; then
         echo "Failed to stop existing application"
         exit 1
     fi
@@ -80,8 +80,8 @@ fi
 
 # 새 버전 실행 (프로필 지정)
 echo "Starting application with $PROFILE profile..."
-nohup java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$LOG_PATH/app.log" 2>&1 &
-APP_PID=$!
+nohup java -jar -Dspring.profiles.active="$PROFILE" "$DEPLOY_PATH/$APP_NAME.jar" > "$LOG_PATH/app.log" 2>&1 &
+APP_PID="$!"
 
 # 프로세스 시작 확인
 sleep 5
