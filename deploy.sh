@@ -80,16 +80,15 @@ fi
 
 # 새 버전 실행 (프로필 지정)
 echo "Starting application with $PROFILE profile..."
-if ! java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$LOG_PATH/app.log" 2>&1 & then
-    echo "Failed to start application"
-    exit 1
-fi
+nohup java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$LOG_PATH/app.log" 2>&1 &
+APP_PID=$!
 
 # 프로세스 시작 확인
 sleep 5
-if ! pgrep -f $APP_NAME.jar > /dev/null; then
+if ! ps -p $APP_PID > /dev/null; then
     echo "Application failed to start. Check logs at $LOG_PATH/app.log"
+    cat "$LOG_PATH/app.log"
     exit 1
 fi
 
-echo "Deployment completed with $PROFILE profile!" 
+echo "Deployment completed with $PROFILE profile! (PID: $APP_PID)" 
