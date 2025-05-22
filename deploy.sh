@@ -6,8 +6,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # 변수 설정
 APP_NAME="hello-world"
 JAR_FILE="target/hello-world-0.0.1-SNAPSHOT.jar"
-DEPLOY_PATH="$SCRIPT_DIR/deploy"
-LOG_PATH="$SCRIPT_DIR/logs"
+DEPLOY_PATH="./deploy"
+LOG_PATH="./logs"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
 # 디버깅 정보 출력
