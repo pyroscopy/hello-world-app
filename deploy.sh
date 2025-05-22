@@ -9,16 +9,16 @@ JAR_FILE="target/hello-world-0.0.1-SNAPSHOT.jar"
 DEPLOY_PATH="$SCRIPT_DIR/deploy"
 PROFILE=${1:-dev}  # 기본값으로 dev 프로필 사용
 
+# 디버깅 정보 출력
+echo "Current directory: $(pwd)"
+echo "Deploy path: $DEPLOY_PATH"
+
 # 빌드 및 테스트
-echo "Building and testing application.."
+echo "Building and testing application..."
 if ! mvn clean package; then
     echo "Tests failed! Deployment aborted."
     exit 1
 fi
-
-# 디버깅 정보 출력
-echo "Current directory: $(pwd)"
-echo "Deploy path: $DEPLOY_PATH"
 
 # 배포 디렉토리 생성 및 권한 확인
 echo "Creating deployment directory..."
@@ -47,17 +47,28 @@ fi
 
 # 새 버전 배포
 echo "Deploying new version..."
-cp $JAR_FILE $DEPLOY_PATH/$APP_NAME.jar
+if ! cp "$JAR_FILE" "$DEPLOY_PATH/$APP_NAME.jar"; then
+    echo "Failed to copy new version"
+    exit 1
+fi
 
 # 애플리케이션 재시작
 echo "Restarting application..."
 pid=$(pgrep -f $APP_NAME.jar)
 if [ ! -z "$pid" ]; then
-    kill $pid
+    echo "Stopping existing application (PID: $pid)..."
+    if ! kill $pid; then
+        echo "Failed to stop existing application"
+        exit 1
+    fi
+    echo "Application stopped successfully"
 fi
 
 # 새 버전 실행 (프로필 지정)
 echo "Starting application with $PROFILE profile..."
-nohup java -jar -Dspring.profiles.active=$PROFILE $DEPLOY_PATH/$APP_NAME.jar > $DEPLOY_PATH/app.log 2>&1 &
+if ! nohup java -jar -Dspring.profiles.active=$PROFILE "$DEPLOY_PATH/$APP_NAME.jar" > "$DEPLOY_PATH/app.log" 2>&1 & then
+    echo "Failed to start application"
+    exit 1
+fi
 
 echo "Deployment completed with $PROFILE profile!" 
