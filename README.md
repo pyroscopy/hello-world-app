@@ -240,7 +240,7 @@ net start jenkins
 - Maven Integration
 
 
-## 빌드 및 테스트
+## Java 빌드 및 테스트
 
 ```bash
 # 빌드 및 테스트 실행
