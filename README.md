@@ -43,7 +43,7 @@ sudo apt update
 sudo apt upgrade -y
 
 # JDK 17 설치
-sudo apt install openjdk-17-jdk
+sudo apt install openjdk-17-jdk -y
 
 # 설치 확인
 java -version
@@ -101,7 +101,7 @@ brew info maven
 ```bash
 # apt를 사용한 설치
 sudo apt update
-sudo apt install maven
+sudo apt install maven -y
 
 # 설치 확인
 mvn -version
@@ -163,7 +163,7 @@ cat ~/.jenkins/secrets/initialAdminPassword
 ```bash
 # Java 설치 (Jenkins 실행에 필요)
 sudo apt update
-sudo apt install openjdk-17-jdk
+sudo apt install openjdk-17-jdk -y
 
 # Jenkins 저장소 키 추가
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
@@ -176,7 +176,7 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 
 # Jenkins 설치
 sudo apt update
-sudo apt install jenkins
+sudo apt install jenkins -y
 
 # Jenkins 서비스 시작
 sudo systemctl start jenkins
