@@ -3,7 +3,7 @@ spring:
     name: hello-world-test
 
 server:
-  port: 8088  # 테스트용 포트
+  port: 8081  # 테스트용 포트
 
 logging:
   level:

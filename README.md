@@ -37,6 +37,7 @@ source ~/.zshrc
 
 ### Linux (Ubuntu/Debian)
 ```bash
+
 # 저장소 추가
 sudo add-apt-repository ppa:linuxuprising/java
 sudo apt update
@@ -146,6 +147,104 @@ mvn -version
 - [Spring Boot 가이드](https://spring.io/guides)
 - [Maven Central Repository](https://search.maven.org/)
 - [Spring Boot 프로필 설정 가이드](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles)
+
+## Jenkins 설치 방법
+
+### macOS
+```bash
+# Homebrew를 사용한 설치
+brew install jenkins
+
+# Jenkins 서비스 시작
+brew services start jenkins
+
+# Jenkins 서비스 상태 확인
+brew services list
+
+# 초기 관리자 비밀번호 확인
+cat ~/.jenkins/secrets/initialAdminPassword
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+# Java 설치 (Jenkins 실행에 필요)
+sudo apt update
+sudo apt install openjdk-17-jdk
+
+# Jenkins 저장소 키 추가
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+# Jenkins 저장소 추가
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# Jenkins 설치
+sudo apt update
+sudo apt install jenkins
+
+# Jenkins 서비스 시작
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+# Jenkins 상태 확인
+sudo systemctl status jenkins
+
+# 초기 관리자 비밀번호 확인
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+### Windows
+1. [Jenkins 다운로드 페이지](https://www.jenkins.io/download/)에서 Windows 설치 파일 다운로드
+2. 다운로드한 `.msi` 파일 실행
+3. 설치 마법사의 지시에 따라 설치 진행
+   - 설치 경로 선택
+   - 서비스 계정 설정
+   - 포트 설정 (기본값: 8080)
+4. 설치 완료 후 자동으로 Jenkins 서비스 시작
+5. 웹 브라우저에서 `http://localhost:8080` 접속
+6. 초기 관리자 비밀번호 입력 (Windows의 경우 `C:\Program Files\Jenkins\secrets\initialAdminPassword` 파일에서 확인)
+
+### Jenkins 접속 방법
+1. 웹 브라우저에서 `http://localhost:8080` 접속
+2. 초기 관리자 비밀번호 입력 (위 명령어로 확인한 비밀번호)
+3. 추천 플러그인 설치 또는 선택적 설치 진행
+4. 관리자 계정 생성
+5. Jenkins URL 설정 (기본값 유지 또는 변경)
+
+### Jenkins 보안 설정
+```bash
+# Jenkins 사용자를 docker 그룹에 추가 (Docker 사용 시)
+# Linux/macOS
+sudo usermod -aG docker jenkins  # Linux
+sudo dscl . -append /Groups/docker GroupMembership jenkins  # macOS
+
+# Jenkins 서비스 재시작
+# Linux
+sudo systemctl restart jenkins
+# macOS
+brew services restart jenkins
+# Windows
+net stop jenkins
+net start jenkins
+```
+
+### Jenkins 플러그인 설치
+1. Jenkins 관리 > 플러그인 관리 메뉴 접속
+2. 설치 가능 탭에서 필요한 플러그인 검색
+3. 설치할 플러그인 선택 후 '지금 다운로드하고 재시작 후 설치' 클릭
+4. Jenkins 재시작 후 플러그인 설치 완료
+
+### 유용한 Jenkins 플러그인
+- Git Integration
+- GitHub Integration
+- GitHub Branch Source Plugin 
+- Pipeline
+- Blue Ocean
+- Environment Injector
+- Maven Integration
+
 
 ## 빌드 및 테스트
 
