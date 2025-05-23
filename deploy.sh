@@ -29,7 +29,7 @@ if [ -e "$DEPLOY_PATH/$APP_NAME.jar" ]; then
         echo "백업 실패! 배포를 중단합니다."
         exit 1
     fi
-    echo "기존 JAR 파일 백업 완료"
+    echo "기존 JAR 파일 백업 완료."
 else
     echo "백업할 기존 JAR 파일이 없습니다."
 fi
