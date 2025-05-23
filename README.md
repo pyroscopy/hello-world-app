@@ -87,6 +87,14 @@ brew install maven
 
 # 설치 확인
 mvn -version
+
+# MAVEN_HOME 환경 변수 설정
+echo 'export MAVEN_HOME=/opt/homebrew/opt/maven' >> ~/.zshrc
+echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+
+# macOS에서 정확한 Maven 설치 경로 확인
+brew info maven
 ```
 
 ### Linux (Ubuntu/Debian)
@@ -97,49 +105,35 @@ sudo apt install maven
 
 # 설치 확인
 mvn -version
+
+# MAVEN_HOME 환경 변수 설정
+echo 'export MAVEN_HOME=/usr/share/maven' >> ~/.bashrc
+echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Linux에서 정확한 Maven 설치 경로 확인
+dpkg -L maven
 ```
 
 ### Windows
 1. [Maven 공식 웹사이트](https://maven.apache.org/download.cgi)에서 최신 버전 다운로드
 2. 다운로드한 파일을 원하는 디렉토리에 압축 해제
 3. 환경 변수 설정:
-   - `MAVEN_HOME`: Maven 설치 디렉토리
+   - `MAVEN_HOME`: Maven 설치 디렉토리 (예: `C:\Program Files\Apache\maven`)
    - `PATH`: `%MAVEN_HOME%\bin` 추가
+4. 설치 확인:
+   - 명령 프롬프트에서 `mvn -version` 실행
+   - 명령 프롬프트에서 `echo %MAVEN_HOME%` 실행
 
-## 유용한 링크
-
-- [Maven 공식 문서](https://maven.apache.org/guides/)
-- [Spring Boot 가이드](https://spring.io/guides)
-- [Maven Central Repository](https://search.maven.org/)
-- [Spring Boot 프로필 설정 가이드](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles)
-
-## Maven 설치 방법
-
-### macOS
+### Maven 환경 변수 확인
 ```bash
-# Homebrew를 사용한 설치
-brew install maven
-
-# 설치 확인
+# Maven 버전 확인
 mvn -version
+
+# MAVEN_HOME 환경 변수 확인
+echo $MAVEN_HOME  # Unix/Linux/macOS
+echo %MAVEN_HOME% # Windows
 ```
-
-### Linux (Ubuntu/Debian)
-```bash
-# apt를 사용한 설치
-sudo apt update
-sudo apt install maven
-
-# 설치 확인
-mvn -version
-```
-
-### Windows
-1. [Maven 공식 웹사이트](https://maven.apache.org/download.cgi)에서 최신 버전 다운로드
-2. 다운로드한 파일을 원하는 디렉토리에 압축 해제
-3. 환경 변수 설정:
-   - `MAVEN_HOME`: Maven 설치 디렉토리
-   - `PATH`: `%MAVEN_HOME%\bin` 추가
 
 ## 유용한 링크
 
