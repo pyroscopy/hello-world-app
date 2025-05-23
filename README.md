@@ -39,8 +39,8 @@ source ~/.zshrc
 ```bash
 
 # 저장소 추가
-sudo add-apt-repository ppa:linuxuprising/java
 sudo apt update
+sudo apt upgrade -y
 
 # JDK 17 설치
 sudo apt install openjdk-17-jdk
