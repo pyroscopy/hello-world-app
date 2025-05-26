@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    options {
+        // 빌드 전 워크스페이스 삭제
+        skipDefaultCheckout()
+        cleanBeforeCheckout()
+    }
+
     tools {
         // Jenkins에 등록한 이름과 일치해야 함
         jdk 'JDK 17'
@@ -10,7 +16,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Git 저장소에서 코드 가져오기
+                // 깨끗한 워크스페이스에서 시작
+                cleanWs()
+                // 소스 코드 체크아웃
                 checkout scm
             }
         }
@@ -32,11 +40,18 @@ pipeline {
                 }
             }
         }
-        // 필요하다면 배포 단계 추가
-        // stage('Deploy') {
-        //     steps {
-        //         sh './deploy.sh'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh 'chmod +x deploy.sh'
+                sh './deploy.sh'
+            }
+        }
+    }
+
+    post {
+        always {
+            // 빌드 후 워크스페이스 정리
+            cleanWs()
+        }
     }
 }
