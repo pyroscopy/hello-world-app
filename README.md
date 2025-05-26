@@ -2,6 +2,38 @@
 
 이 프로젝트는 배포 실습을 위한 간단한 Spring Boot 애플리케이션입니다.
 
+## 목차
+- [요구사항](#요구사항)
+  - [Java 환경](#java-환경)
+- [JDK 17 설치 방법](#jdk-17-설치-방법)
+  - [macOS](#macos)
+  - [Linux (Ubuntu/Debian)](#linux-ubuntudebian)
+  - [Windows](#windows)
+  - [설치 확인](#설치-확인)
+- [Maven 설치 방법](#maven-설치-방법)
+  - [macOS](#macos-1)
+  - [Linux (Ubuntu/Debian)](#linux-ubuntudebian-1)
+  - [Windows](#windows-1)
+  - [Maven 환경 변수 확인](#maven-환경-변수-확인)
+- [Jenkins 설치 방법](#jenkins-설치-방법)
+  - [macOS](#macos-2)
+  - [Linux (Ubuntu/Debian)](#linux-ubuntudebian-2)
+  - [Windows](#windows-2)
+  - [Jenkins 접속 방법](#jenkins-접속-방법)
+  - [Jenkins 보안 설정](#jenkins-보안-설정)
+  - [Jenkins 플러그인 설치](#jenkins-플러그인-설치)
+- [Java 빌드 및 테스트](#java-빌드-및-테스트)
+- [실행 방법](#실행-방법)
+  - [개발 환경](#개발-환경)
+  - [운영 환경](#운영-환경)
+- [API 엔드포인트](#api-엔드포인트)
+- [배포 방법](#배포-방법)
+- [환경별 설정](#환경별-설정)
+  - [개발 환경 (dev)](#개발-환경-dev)
+  - [운영 환경 (prod)](#운영-환경-prod)
+  - [테스트 환경 (test)](#테스트-환경-test)
+- [유용한 링크](#유용한-링크)
+
 ## 요구사항
 
 ### Java 환경
@@ -298,4 +330,4 @@ chmod +x deploy.sh
 ### 테스트 환경 (test)
 - 테스트용 포트 사용 (8081)
 - 테스트 전용 로그 설정
-- MockMvc를 사용한 통합 테스트 
+- MockMvc를 사용한 통합 테스트
